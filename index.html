@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 2</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <p>Выведем заголовки новостей:</p>
+    <ul data-bind="foreach: newsHeaders">
+        <li data-bind="text: $data"></li>
+    </ul>
+    <form action="#" data-bind="with: addNewsControl">
+        <label for="newTitle">Заголовок</label>
+        <input id="newTitle" type="text" data-bind="value: newTitle"/><br/><br/>
+        <label for="newText">Текст</label>
+        <input id="newText" type="text" data-bind="value: newText"/><br/><br/>
+        <label for="newIsNew">Признак новизны</label>
+        <input id="newIsNew" type="checkbox" data-bind="checked: newIsNew"/><br/><br/>
+        <button data-bind="click: addItem">Добавить</button>
+        <button data-bind="click: removeAll">Удалить все</button>
+    </form>
+    <p>Выведем новости целиком:</p>
+    <ul class="news-list" data-bind="template: { name: 'news-template', foreach: news, as: 'teaser' }">
+    </ul>
+</body>
+<script type="text/html" id="news-template">
+    <li>
+        <!-- ko if: teaser.isNew -->
+        <span class="new-label">Новое</span>
+        <!-- /ko -->
+        <h2 data-bind="text: teaser.title"></h2>
+        <p data-bind="text: teaser.text"></p>
+        <a href="#" data-index="$index" data-bind="click: $root.removeItem">Удалить</a>
+    </li>
+</script>
+<script type="text/javascript" src="lib/knockout.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</html>
